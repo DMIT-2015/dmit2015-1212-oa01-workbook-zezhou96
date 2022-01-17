@@ -16,8 +16,14 @@ public class AlbertaCovid19SummaryDataService {
     private List<AlbertaCovid19SummaryData> dataList = new ArrayList<>();
 
     public AlbertaCovid19SummaryDataService() throws IOException {
-        try(var reader = new BufferedReader(new InputStreamReader(
-                getClass().getResourceAsStream("/data/covid-19-alberta-statistics-summary-data.csv")))){
+        dataList = loadCsvData();
+    }
+
+    private List<AlbertaCovid19SummaryData> loadCsvData() throws IOException {
+        List<AlbertaCovid19SummaryData> dataList = new ArrayList<>();
+
+        try (var reader = new BufferedReader(new InputStreamReader(
+                getClass().getResourceAsStream("/data/covid-19-alberta-statistics-summary-data.csv")))) {
             //final var delimiter = ",";
             final var delimiter = ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"; // Prevents splitting if , is inside ""
             String line;
@@ -25,7 +31,7 @@ public class AlbertaCovid19SummaryDataService {
             reader.readLine();
             var dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             // Read one line at a time
-            while((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 String[] values = line.split(delimiter, -1);    // The -1 limit allows for any number of fields and not discard trailing empty fields
                 // Column order of fields:
                 // 0 - "ID"
@@ -61,6 +67,7 @@ public class AlbertaCovid19SummaryDataService {
                 // Add lineData to dataList
                 dataList.add(lineData);
             }
+            return dataList;
         }
     }
 }
