@@ -36,7 +36,7 @@ public class MovieRepositoryIT {
         PomEquippedResolveStage pomFile = Maven.resolver().loadPomFromFile("pom.xml");
         return ShrinkWrap.create(WebArchive.class,"test.war")
 //                .addAsLibraries(pomFile.resolve("groupId:artifactId:version").withTransitivity().asFile())
-                .addAsLibraries(pomFile.resolve("com.h2database:h2:2.1.210").withTransitivity().asFile())
+//                .addAsLibraries(pomFile.resolve("com.h2database:h2:2.1.210").withTransitivity().asFile())
                 .addAsLibraries(pomFile.resolve("org.hsqldb:hsqldb:2.6.1").withTransitivity().asFile())
 //                .addAsLibraries(pomFile.resolve("com.microsoft.sqlserver:mssql-jdbc:8.4.1.jre11").withTransitivity().asFile())
 //                .addAsLibraries(pomFile.resolve("com.oracle.database.jdbc:ojdbc11:21.1.0.0").withTransitivity().asFile())

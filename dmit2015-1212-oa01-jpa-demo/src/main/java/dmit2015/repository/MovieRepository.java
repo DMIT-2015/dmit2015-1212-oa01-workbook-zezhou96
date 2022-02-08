@@ -15,11 +15,11 @@ import dmit2015.entity.Movie;
 public class MovieRepository {
 
     @PersistenceContext(unitName = "hsqldatabase-jpa-pu")
-    private EntityManager em;
+    private EntityManager em;   // Gives us functions to use
 
     public void add(Movie newMovie) {
         em.persist(newMovie);
-    }
+    }   // persist = save
 
     public void update(Movie updatedMovie) {
         Optional<Movie> optionalMovie = findById(updatedMovie.getId());
@@ -30,7 +30,7 @@ public class MovieRepository {
             existingMovie.setPrice(updatedMovie.getPrice());
             existingMovie.setRating(updatedMovie.getRating());
             existingMovie.setReleaseDate(updatedMovie.getReleaseDate());
-            em.merge(existingMovie);
+            em.merge(existingMovie);    // merge = update
             em.flush();
         }
     }
