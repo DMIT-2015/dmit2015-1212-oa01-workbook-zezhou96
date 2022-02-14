@@ -24,6 +24,9 @@ public class TodoItem implements Serializable {
 
     private boolean complete;
 
+    // implement optimistic database login
+    // for when multiple users are updating multiple records
+    // only used when performing an update
     @Version
     private Integer version;
 
