@@ -9,6 +9,7 @@ import java.util.Collection;
 @Table(name = "REGIONS", schema = "HR", catalog = "")
 public class RegionsEntity {
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "REGION_ID")
     private BigInteger regionId;

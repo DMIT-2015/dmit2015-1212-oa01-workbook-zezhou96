@@ -8,6 +8,7 @@ import java.util.Collection;
 @Table(name = "JOBS", schema = "HR", catalog = "")
 public class JobsEntity {
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "JOB_ID")
     private String jobId;

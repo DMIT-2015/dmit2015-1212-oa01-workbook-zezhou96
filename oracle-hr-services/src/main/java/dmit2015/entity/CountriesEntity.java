@@ -6,7 +6,7 @@ import java.math.BigInteger;
 import java.util.Collection;
 
 @Entity
-@Table(name = "COUNTRIES", schema = "HR", catalog = "")
+@Table(name = "COUNTRIES", schema = "HR")
 public class CountriesEntity {
 
     @Id
@@ -19,7 +19,7 @@ public class CountriesEntity {
     @Column(name = "REGION_ID")
     private BigInteger regionId;
     @ManyToOne
-    @JoinColumn(name = "REGION_ID", referencedColumnName = "REGION_ID")
+    @JoinColumn(name = "REGION_ID", referencedColumnName = "REGION_ID", insertable = false, updatable = false)
     private RegionsEntity regionsByRegionId;
     @OneToMany(mappedBy = "countriesByCountryId")
     private Collection<LocationsEntity> locationsByCountryId;

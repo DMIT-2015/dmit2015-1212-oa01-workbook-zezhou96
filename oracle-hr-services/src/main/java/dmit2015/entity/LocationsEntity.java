@@ -8,6 +8,7 @@ import java.util.Collection;
 @Table(name = "LOCATIONS", schema = "HR", catalog = "")
 public class LocationsEntity {
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "LOCATION_ID")
     private Short locationId;

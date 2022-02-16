@@ -2,11 +2,11 @@ package dmit2015.entity;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Collection;
 
 @Entity
-@Table(name = "EMPLOYEES", schema = "HR", catalog = "")
+@Table(name = "EMPLOYEES", schema = "HR")
 public class EmployeesEntity {
 
     @Id
@@ -26,7 +26,7 @@ public class EmployeesEntity {
     private String phoneNumber;
     @Basic
     @Column(name = "HIRE_DATE")
-    private Date hireDate;
+    private LocalDate hireDate;
     @Basic
     @Column(name = "JOB_ID")
     private String jobId;
@@ -45,15 +45,15 @@ public class EmployeesEntity {
     @OneToMany(mappedBy = "employeesByManagerId")
     private Collection<DepartmentsEntity> departmentsByEmployeeId;
     @ManyToOne
-    @JoinColumn(name = "JOB_ID", referencedColumnName = "JOB_ID", nullable = false)
+    @JoinColumn(name = "JOB_ID", referencedColumnName = "JOB_ID", nullable = false, insertable = false, updatable = false)
     private JobsEntity jobsByJobId;
     @ManyToOne
-    @JoinColumn(name = "MANAGER_ID", referencedColumnName = "EMPLOYEE_ID")
+    @JoinColumn(name = "MANAGER_ID", referencedColumnName = "EMPLOYEE_ID", insertable = false, updatable = false)
     private EmployeesEntity employeesByManagerId;
     @OneToMany(mappedBy = "employeesByManagerId")
     private Collection<EmployeesEntity> employeesByEmployeeId;
     @ManyToOne
-    @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "DEPARTMENT_ID")
+    @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "DEPARTMENT_ID", insertable = false, updatable = false)
     private DepartmentsEntity departmentsByDepartmentId;
     @OneToMany(mappedBy = "employeesByEmployeeId")
     private Collection<JobHistoryEntity> jobHistoriesByEmployeeId;
@@ -98,11 +98,11 @@ public class EmployeesEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    public Date getHireDate() {
+    public LocalDate getHireDate() {
         return hireDate;
     }
 
-    public void setHireDate(Date hireDate) {
+    public void setHireDate(LocalDate hireDate) {
         this.hireDate = hireDate;
     }
 

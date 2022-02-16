@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="oracle-hr-services" target="1.8" />
+      <module name="oracle-hr-services" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>

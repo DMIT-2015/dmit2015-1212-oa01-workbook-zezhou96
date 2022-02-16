@@ -10,10 +10,12 @@ import java.sql.Date;
 
 public class JobHistoryEntityPK implements Serializable {
     @Column(name = "EMPLOYEE_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
 
     private Integer employeeId;
     @Column(name = "START_DATE")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
 
     private Date startDate;

@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "DEPARTMENTS", schema = "HR", catalog = "")
+@Table(name = "DEPARTMENTS", schema = "HR")
 public class DepartmentsEntity {
 
     @Id
@@ -21,10 +21,10 @@ public class DepartmentsEntity {
     @Column(name = "LOCATION_ID")
     private Short locationId;
     @ManyToOne
-    @JoinColumn(name = "MANAGER_ID", referencedColumnName = "EMPLOYEE_ID")
+    @JoinColumn(name = "MANAGER_ID", referencedColumnName = "EMPLOYEE_ID", insertable = false, updatable = false)
     private EmployeesEntity employeesByManagerId;
     @ManyToOne
-    @JoinColumn(name = "LOCATION_ID", referencedColumnName = "LOCATION_ID")
+    @JoinColumn(name = "LOCATION_ID", referencedColumnName = "LOCATION_ID", insertable = false, updatable = false)
     private LocationsEntity locationsByLocationId;
     @OneToMany(mappedBy = "departmentsByDepartmentId")
     private Collection<EmployeesEntity> employeesByDepartmentId;

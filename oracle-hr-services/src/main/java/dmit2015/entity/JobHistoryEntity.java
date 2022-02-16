@@ -3,9 +3,10 @@ package dmit2015.entity;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "JOB_HISTORY", schema = "HR", catalog = "")
+@Table(name = "JOB_HISTORY", schema = "HR")
 @IdClass(JobHistoryEntityPK.class)
 public class JobHistoryEntity {
 
@@ -13,6 +14,7 @@ public class JobHistoryEntity {
     @Column(name = "EMPLOYEE_ID")
     private Integer employeeId;
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "START_DATE")
     private Date startDate;
@@ -26,13 +28,13 @@ public class JobHistoryEntity {
     @Column(name = "DEPARTMENT_ID")
     private Short departmentId;
     @ManyToOne
-    @JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "EMPLOYEE_ID", nullable = false)
+    @JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "EMPLOYEE_ID", nullable = false, insertable = false, updatable = false)
     private EmployeesEntity employeesByEmployeeId;
     @ManyToOne
-    @JoinColumn(name = "JOB_ID", referencedColumnName = "JOB_ID", nullable = false)
+    @JoinColumn(name = "JOB_ID", referencedColumnName = "JOB_ID", nullable = false, insertable = false, updatable = false)
     private JobsEntity jobsByJobId;
     @ManyToOne
-    @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "DEPARTMENT_ID")
+    @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "DEPARTMENT_ID", insertable = false, updatable = false)
     private DepartmentsEntity departmentsByDepartmentId;
 
     public Integer getEmployeeId() {
@@ -43,19 +45,19 @@ public class JobHistoryEntity {
         this.employeeId = employeeId;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
