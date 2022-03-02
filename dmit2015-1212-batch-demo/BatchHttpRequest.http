@@ -1,3 +1,6 @@
 ### Start a new batch job
 # curl -i -X POST http://localhost:8080/dmit2015-1212-batch-demo/webapi/batch-jobs/blankChunkBatchJob
-POST http://localhost:8080/dmit2015-1212-batch-demo-1.0-SNAPSHOT/webapi/batch-jobs/blankChunkBatchJob
+POST http://localhost:8080/dmit2015-1212-batch-demo/webapi/batch-jobs/job
+
+### Check the status of batch job 1
+GET http://localhost:8080/dmit2015-1212-batch-demo/webapi/batch-jobs/1
