@@ -1,5 +1,12 @@
 <job id="myJob" xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="1.0">
+    <listeners>
+        <listener ref="enforcementZoneCentreJobListener"></listener>
+    </listeners>
+
     <step id="downloadFileStep" next="importDataStep">
+        <listeners>
+            <listener ref="enforcementZoneCentreStepListener"></listener>
+        </listeners>
         <batchlet ref="downloadCsvFileBatchlet">
             <properties>
                 <property name="csv_file_uri" value="https://data.edmonton.ca/api/views/akzz-54k3/rows.csv?accessType=DOWNLOAD"/>
@@ -9,6 +16,10 @@
     </step>
 
     <step id="importDataStep">
+        <listeners>
+            <listener ref="enforcementZoneCentreStepListener"></listener>
+            <listener ref="enforcementZoneCentreChunkListener"></listener>
+        </listeners>
         <chunk item-count="50">
             <reader ref="enforcementZoneCentreItemReader">
                 <properties>
