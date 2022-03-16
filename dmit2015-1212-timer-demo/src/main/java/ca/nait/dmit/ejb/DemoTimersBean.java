@@ -9,6 +9,7 @@ import jakarta.batch.runtime.BatchStatus;
 import jakarta.batch.runtime.JobExecution;
 import jakarta.ejb.*;
 import jakarta.inject.Inject;
+import jakarta.mail.MessagingException;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.util.List;
@@ -92,19 +93,38 @@ public class DemoTimersBean {        // Also known as Calendar-Based Timers
         @Inject
         EnforcementZoneCentreRepository enforcementZoneCentreRepository;
 
-        public void checkBatchJobStatus(Timer timer) {
-                // Extract the jobId from the timer
-                long jobId = (long)timer.getInfo();
-                JobOperator jobOperator = BatchRuntime.getJobOperator();
-                JobExecution jobExecution = jobOperator.getJobExecution(jobId);
+        public void checkBatchJobStatus(Timer timer) throws MessagingException {
+                try {
+                        // Extract the jobId from the timer
+                        long jobId = (long) timer.getInfo();
+                        JobOperator jobOperator = BatchRuntime.getJobOperator();
+                        JobExecution jobExecution = jobOperator.getJobExecution(jobId);
 
-                if(jobExecution.getBatchStatus() == BatchStatus.COMPLETED) {
-                        timer.cancel();
-                        // Send email to notified batch job has completed
-                        List<EnforcementZoneCentre>  entities = enforcementZoneCentreRepository.list();
-                } else if (jobExecution.getBatchStatus() == BatchStatus.FAILED) {
-                        // Send email to notify batch job has failed
-                        timer.cancel();
+                        if (jobExecution.getBatchStatus() == BatchStatus.COMPLETED) {
+                                timer.cancel();
+                                _logger.info("BATCH job " + jobId + " COMPLETED");
+                                // Send email to notified batch job has completed
+                                List<EnforcementZoneCentre> entities = enforcementZoneCentreRepository.list();
+                                StringBuilder stringBuilder = new StringBuilder();
+                                for (var currentItem : entities) {
+                                        String lineText = String.format("%s %s %s \n", currentItem.getSiteId(), currentItem.getLocationDescription(), currentItem.getSpeedLimit());
+                                        stringBuilder.append(lineText);
+                                }
+                                String mailBody = stringBuilder.toString();
+                                mail.sendTextEmail(mailToAddress, "BATCH Job COMPLETED", mailBody);
+                        } else if (jobExecution.getBatchStatus() == BatchStatus.FAILED) {
+                                // Send email to notify batch job has failed
+                                timer.cancel();
+                                _logger.info("BATCH job " + jobId + " FAILED");
+                        }
+                } catch (Exception ex) {
+                        ex.printStackTrace();
+                        try {
+                                mail.sendTextEmail(mailToAddress, "BATCH Job Exception", ex.getMessage());
+                        } catch (Exception e) {
+                                e.printStackTrace();
+                        }
+
                 }
         }
 
