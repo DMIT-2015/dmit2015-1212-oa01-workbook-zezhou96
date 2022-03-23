@@ -60,7 +60,6 @@
                 </p:column>
 
                 <p:column headerText="Action">
-                    <f:verbatim>
                         <p:link id="editLink" outcome="edit" value="edit">
                             <f:param name="editId" value="#{currentItem.id}"/>
                         </p:link>
@@ -72,7 +71,6 @@
                         <p:link id="deleteLink" outcome="delete" value="delete">
                             <f:param name="editId" value="#{currentItem.id}"/>
                         </p:link>
-                    </f:verbatim>
                 </p:column>
             </p:dataTable>
         </h:form>
