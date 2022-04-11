@@ -4,11 +4,21 @@ import jakarta.annotation.sql.DataSourceDefinition;
 import jakarta.annotation.sql.DataSourceDefinitions;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.faces.annotation.FacesConfig;
-import jakarta.security.enterprise.authentication.mechanism.http.BasicAuthenticationMechanismDefinition;
+import jakarta.security.enterprise.authentication.mechanism.http.CustomFormAuthenticationMechanismDefinition;
+import jakarta.security.enterprise.authentication.mechanism.http.LoginToContinue;
+import jakarta.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
 import jakarta.security.enterprise.identitystore.LdapIdentityStoreDefinition;
 
-@BasicAuthenticationMechanismDefinition(
-		realmName="jaspitest"
+//@BasicAuthenticationMechanismDefinition(
+//		realmName="jaspitest"
+//)
+
+@CustomFormAuthenticationMechanismDefinition(
+		loginToContinue = @LoginToContinue(
+				loginPage="/customLogin.xhtml",
+				useForwardToLogin = false,
+				errorPage=""
+		)
 )
 
 @LdapIdentityStoreDefinition(
@@ -19,6 +29,13 @@ import jakarta.security.enterprise.identitystore.LdapIdentityStoreDefinition;
 		bindDn = "cn=DAUSTIN,ou=IT,ou=Departments,dc=dmit2015,dc=ca",
 		bindDnPassword = "Password2015",
 		priority = 5
+)
+
+@DatabaseIdentityStoreDefinition(
+		dataSourceLookup="java:app/datasources/mssqlDS",
+		callerQuery="SELECT password FROM CallerUser WHERE username = ?",
+		groupsQuery="SELECT groupname FROM CallerGroup WHERE username = ? ",
+		priority = 10
 )
 
 @DataSourceDefinitions({
