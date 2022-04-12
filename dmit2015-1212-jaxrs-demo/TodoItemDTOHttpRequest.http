@@ -1,23 +1,45 @@
 ### Get all TodoItems
-GET http://localhost:8080/dmit2015-1212-jaxrs-demo/webapi/TodoItemDtos
+GET http://localhost:8080/webapi/TodoItemDtos
 
 ### Get a single TodoItem with an id of 1
-GET http://localhost:8080/dmit2015-1212-jaxrs-demo/webapi/TodoItemDtos/1
+GET http://localhost:8080/webapi/TodoItemDtos/1
+
+### GET a JWT Token for LDAP user DLEE
+POST http://localhost:8080/webapi/jwt/ldapJsonLogin
+Content-Type:application/json
+
+{"username":"DLEE","password":"Password2015"}
+
+### GET a JWT Token for Database user Sales01
+POST http://localhost:8080/webapi/jwt/jsonLogin
+Content-Type:application/json
+
+{"username":"sales01","password":"Password2015"}
+
+### POST TodoItem using JWT
+POST http://localhost:8080/webapi/TodoItems
+Authorization: Bearer eyJraWQiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJETEVFIiwidXBuIjoiRExFRSIsImlzcyI6InF1aWNrc3RhcnQtand0LWlzc3VlciIsImF1ZCI6Imp3dC1hdWRpZW5jZSIsImdyb3VwcyI6WyJTYWxlcyJdLCJqdGkiOiJkMGI0NzIxNS01MTgxLTQyNDYtYmI3ZC1lY2M5MGM4M2E4ZDIiLCJpYXQiOjE2NDk3ODMwMDQsImV4cCI6MTY0OTc5NzQwNH0.Y79sm2m3Nju5MAYZk6lpRQZpwdseugLEHW082lVIlUPFsXBjIhFFuuMUdVK4TBxPWikEilk35WWYWggt0TIs9AN02ciaan2XNuLKgmBGC_gqwsOH3q--yd0G256tjUTPcIDp_MvtK-cQKgC1G4R8B1jWLnkJWGtpv5KWieZOvv95QeGtmVWvKU_mLftmevJ65H2l-dim3LqXrIGkFrM_WOwcIIe-CSi2gzzf9JkSie_BAMhUplqL0f0q0v5EqvssxQ66dS-dEM2CXj5fEqhQoCwxxFJz1iPIGPbraPMVSinAmjtJA5ts6QeGtrVyb9FDYDiY89SiUhKi9QnCT-Hb7w
+Content-Type: application/json
+
+{
+  "name": "POST TodoItem using JWT",
+  "complete": true
+}
 
 ### POST a new TodoItem
-POST http://localhost:8080//dmit2015-1212-jaxrs-demo/webapi/TodoItemDtos
+POST http://localhost:8080//webapi/TodoItemDtos
 Content-Type: application/json
 
 {"name":"Finish DMIT2015 Assignment 2", "complete":false}
 
 ### Get a single TodoItem with an id of 4
-GET http://localhost:8080/dmit2015-1212-jaxrs-demo/webapi/TodoItemDtos/4
+GET http://localhost:8080/webapi/TodoItemDtos/4
 
 ### Update TodoItem with an id of 4 and change name and complete properties.
-PUT http://localhost:8080/dmit2015-1212-jaxrs-demo/webapi/TodoItemDtos/2
+PUT http://localhost:8080/webapi/TodoItemDtos/2
 Content-Type: application/json
 
 {"todoItemId":2, "name":"Update TodoItem 2", "complete":true}
 
 ### Delete an TodoItem with an id of 4
-DELETE http://localhost:8080/dmit2015-1212-jaxrs-demo/webapi/TodoItemDtos/4
+DELETE http://localhost:8080/webapi/TodoItemDtos/4
